@@ -153,7 +153,31 @@
     font-size:0.8rem; text-align:center; padding:0.5rem; position:relative; overflow:hidden;
   }
   .gallery .frame::after{ content:""; position:absolute; inset:6px; border:1px dashed var(--gold); pointer-events:none; }
-  .gallery .frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery .frame img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; cursor:pointer; }
+  .gallery .frame:nth-child(4) img{ object-position:center 65%; }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    display:none;
+    position:fixed; inset:0; z-index:100;
+    background:rgba(59,46,32,0.9);
+    align-items:center; justify-content:center;
+    padding:1.5rem;
+    touch-action:manipulation;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{
+    max-width:100%; max-height:100%;
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+  }
+  .lightbox-close{
+    position:absolute; top:1rem; right:1rem;
+    background:var(--paper); border:1px solid var(--gold); color:var(--ink);
+    font-family:'EB Garamond', serif; font-size:1.6rem; line-height:1;
+    width:44px; height:44px; border-radius:50%;
+    cursor:pointer;
+  }
+  .lightbox-close:hover{ background:var(--ink); color:var(--paper); }
 
   /* ---------- REGISTRY ---------- */
   .registry-card{ margin-top:2rem; background:var(--paper); border:1px solid var(--kraft-deep); padding:2rem; text-align:center; }
@@ -180,7 +204,6 @@
     <div class="unit"><span class="num" id="cd-days">--</span><span class="label">Giorni</span></div>
     <div class="unit"><span class="num" id="cd-hours">--</span><span class="label">Ore</span></div>
     <div class="unit"><span class="num" id="cd-mins">--</span><span class="label">Minuti</span></div>
-    <div class="unit"><span class="num" id="cd-secs">--</span><span class="label">Secondi</span></div>
   </div>
   <svg class="mountains-divider" viewBox="0 0 340 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M0,50 L40,20 L70,40 L110,10 L150,35 L190,15 L230,42 L270,22 L310,45 L340,30" fill="none" stroke="#9C7A32" stroke-width="1.5"/>
@@ -194,13 +217,13 @@
   <div class="location-grid">
     <div class="loc-card">
       <h3>Cerimonia</h3>
-      <p>Chiesa di San Michele<br>Oreno di Vimercate (MB)<br>Ore 11:00</p>
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Chiesa+di+San+Michele+Oreno+di+Vimercate" target="_blank" rel="noopener">Apri in Google Maps</a>
+      <p>Chiesa di San Michele Arcangelo<br>Oreno di Vimercate (MB)<br>Ore 11:00</p>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Chiesa+di+San+Michele+Arcangelo+Oreno+di+Vimercate" target="_blank" rel="noopener">Apri in Google Maps</a>
     </div>
     <div class="loc-card">
       <h3>Ricevimento</h3>
-      <p>Cascina Lodovica<br>Oreno di Vimercate (MB)<br>A seguire</p>
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cascina+Lodovica+Oreno+di+Vimercate" target="_blank" rel="noopener">Apri in Google Maps</a>
+      <p>Tenuta la Lodovica<br>Oreno di Vimercate (MB)<br>A seguire</p>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Tenuta+la+Lodovica+Oreno+di+Vimercate" target="_blank" rel="noopener">Apri in Google Maps</a>
     </div>
   </div>
   <svg class="mountains-divider" viewBox="0 0 340 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -213,10 +236,10 @@
   <span class="eyebrow">come si svolgerà</span>
   <h2>Il programma della giornata</h2>
   <div class="timeline">
-    <div class="item"><span class="time">11:00</span><span class="what">Cerimonia presso la Chiesa di San Michele</span></div>
-    <div class="item"><span class="time">12:30</span><span class="what">Trasferimento e aperitivo alla Cascina Lodovica</span></div>
-    <div class="item"><span class="time">14:00</span><span class="what">Pranzo e brindisi</span></div>
-    <div class="item"><span class="time">17:00</span><span class="what">Taglio della torta e festa a seguire</span></div>
+    <div class="item"><span class="time">11:00</span><span class="what">Cerimonia presso la Chiesa di San Michele Arcangelo</span></div>
+    <div class="item"><span class="time">13:00</span><span class="what">Trasferimento e aperitivo alla Tenuta la Lodovica</span></div>
+    <div class="item"><span class="time">14:30</span><span class="what">Pranzo e brindisi</span></div>
+    <div class="item"><span class="time">18:30</span><span class="what">Taglio della torta e festa a seguire</span></div>
   </div>
 </section>
 
@@ -249,7 +272,7 @@
         <input type="number" id="bambini-under3" name="bambini_under3" min="0" max="10" value="0">
       </div>
       <div>
-        <label for="bambini-over5">Bambini sopra i 5 anni</label>
+        <label for="bambini-over5">Bambini fra i 4 e gli 8 anni</label>
         <input type="number" id="bambini-over5" name="bambini_over5" min="0" max="10" value="0">
       </div>
     </div>
@@ -260,9 +283,6 @@
     <button type="submit" class="btn primary">Invia la conferma</button>
     <p id="rsvp-feedback" role="status"></p>
   </form>
-  <p class="rsvp-note">
-    Le risposte vengono inviate al vostro foglio Google Sheets tramite Google Apps Script.
-  </p>
 </section>
 
 <!-- ===================== GALLERY ===================== -->
@@ -277,8 +297,13 @@
     <div class="frame"><img src="foto-5.jpg" alt="Un nostro momento"></div>
     <div class="frame"><img src="foto-6.jpg" alt="Un nostro momento"></div>
   </div>
-  <p class="rsvp-note">Carica su GitHub le tue foto con questi nomi esatti (foto-1.jpg, foto-2.jpg... foto-6.jpg) nella stessa cartella di index.html: appariranno qui automaticamente.</p>
 </section>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Chiudi">&times;</button>
+  <img id="lightbox-img" src="" alt="Foto ingrandita">
+</div>
 
 <!-- ===================== REGISTRY ===================== -->
 <section id="lista-nozze">
@@ -307,14 +332,12 @@
     const d = Math.floor(diff / (1000*60*60*24));
     const h = Math.floor((diff / (1000*60*60)) % 24);
     const m = Math.floor((diff / (1000*60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
     document.getElementById('cd-days').textContent = d;
     document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
     document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
   }
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+  setInterval(updateCountdown, 30000);
 
   // ---------- RSVP -> Google Sheets via Google Apps Script Web App ----------
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6Ed7bJnc-0gF1z-Sj6-1TGTdDmffejFXl6I9GnGbSRPZqN6Cp7izTM1PJ-LkQMmg2uA/exec";
@@ -353,6 +376,37 @@
       feedback.textContent = "Si è verificato un problema nell'invio. Riprova tra poco.";
       feedback.style.color = "#A9673A";
     });
+  });
+
+  // ---------- Lightbox galleria (funziona anche su smartphone) ----------
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const galleryImgs = document.querySelectorAll('.gallery .frame img');
+
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  galleryImgs.forEach(function(img){
+    img.addEventListener('click', function(){
+      openLightbox(img.getAttribute('src'), img.getAttribute('alt'));
+    });
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeLightbox();
   });
 </script>
 
