@@ -81,7 +81,7 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    display:flex; justify-content:center;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
     padding:2.5rem 1.2rem;
     position:relative;
   }
@@ -95,6 +95,25 @@
   }
   .hero-illustration{
     width:100%; height:100%; object-fit:contain; display:block;
+  }
+  .hero-quote{
+    margin:1.8rem 0 0;
+    max-width:520px;
+    text-align:center;
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .hero-quote span{
+    display:block;
+    margin-top:0.6rem;
+    font-style:normal;
+    font-size:0.85rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--gold);
   }
 
   /* ---------- COUNTDOWN ---------- */
@@ -195,12 +214,12 @@
   <div class="hero-photo-wrap">
     <img class="hero-illustration" src="foto-copertina.jpg" alt="Lucia e Edoardo, 2 ottobre 2026">
   </div>
+  <p class="hero-quote">«Amare non è guardarsi l'un l'altro, ma guardare insieme nella stessa direzione»<span>Antoine de Saint-Exupéry, Terra degli uomini</span></p>
 </header>
 
 <!-- ===================== COUNTDOWN ===================== -->
 <section class="countdown-wrap" id="countdown-section">
   <span class="eyebrow">manca ancora un po'...</span>
-  <h2>Il conto alla rovescia</h2>
   <div class="countdown" id="countdown" role="timer" aria-live="polite">
     <div class="unit"><span class="num" id="cd-days">--</span><span class="label">Giorni</span></div>
     <div class="unit"><span class="num" id="cd-hours">--</span><span class="label">Ore</span></div>
@@ -214,7 +233,6 @@
 <!-- ===================== LOCATION ===================== -->
 <section id="dove">
   <span class="eyebrow">dove trovarci</span>
-  <h2>La location</h2>
   <div class="location-grid">
     <div class="loc-card">
       <h3>Cerimonia</h3>
@@ -235,7 +253,6 @@
 <!-- ===================== PROGRAM ===================== -->
 <section id="programma">
   <span class="eyebrow">come si svolgerà</span>
-  <h2>Il programma della giornata</h2>
   <div class="timeline">
     <div class="item"><span class="time">11:00</span><span class="what">Cerimonia presso la Chiesa di San Michele Arcangelo</span></div>
     <div class="item"><span class="time">13:00</span><span class="what">Trasferimento e aperitivo a La Lodovica Dimora di Campagna XIX sec.</span></div>
@@ -246,8 +263,7 @@
 
 <!-- ===================== RSVP ===================== -->
 <section id="rsvp">
-  <span class="eyebrow">contiamo su di voi</span>
-  <h2>Conferma la tua presenza</h2>
+  <span class="eyebrow">Conferma la tua presenza</span>
   <p style="color:var(--ink-soft); margin-top:0.6rem;">Vi chiediamo di rispondere entro il <strong>1 settembre 2026</strong>.</p>
 
   <form class="rsvp-form" id="rsvp-form">
@@ -289,7 +305,6 @@
 <!-- ===================== GALLERY ===================== -->
 <section id="galleria">
   <span class="eyebrow">i nostri momenti</span>
-  <h2>Galleria foto</h2>
   <div class="gallery">
     <div class="frame"><img src="foto-1.jpg?v=2" alt="Un nostro momento"></div>
     <div class="frame"><img src="foto-2.jpg?v=2" alt="Un nostro momento"></div>
@@ -313,10 +328,10 @@
 <!-- ===================== REGISTRY ===================== -->
 <section id="lista-nozze">
   <span class="eyebrow">se vuoi farci un pensiero</span>
-  <h2>Lista nozze</h2>
   <div class="registry-card">
-    <p>Venite a fare festa con noi! Se poi volete evitare che la nostra prima cena da sposati sia a base di
-    tonno e crackers, ecco come aiutarci:</p>
+    <p>«Non tutti quelli che vagano sono perduti...»<br>
+    ...ma senza l'aiuto della nostra Compagnia rischiamo di perderci la Terra di Mezzo (e una tappa alle Fiji!).<br>
+    Se vorrete accompagnarci in questa avventura, potrete contribuire alla realizzazione del nostro viaggio di nozze.</p>
     <p><strong>IBAN:</strong> IT82U0306909441100000010010<br>
     <strong>Intestato a:</strong> Lucia Telmon</p>
   </div>
